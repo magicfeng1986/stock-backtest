@@ -12,13 +12,16 @@
       "dest": "/api/index.go"
     },
     {
+      "handle": "filesystem"
+    },
+    {
       "src": "/(.*)",
       "dest": "/api/index.go"
     }
   ],
   "headers": [
     {
-      "source": "/(.*)",
+      "source": "/api/(.*)",
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
@@ -34,6 +37,5 @@
         }
       ]
     }
-  ],
-  "regions": ["hkg1"]
+  ]
 }
