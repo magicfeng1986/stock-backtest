@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>股票回测系统</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>股票回测系统</h1>
+            <p>基于历史数据的股票策略回测平台</p>
+        </header>
+
+        <main>
+            <section class="control-panel">
+                <div class="form-group">
+                    <label for="stock-search">股票搜索</label>
+                    <div class="search-box">
+                        <input type="text" id="stock-search" placeholder="输入股票代码或名称 (如: 000001 或 平安银行)" autocomplete="off">
+                        <div id="search-results" class="search-results"></div>
+                    </div>
+                    <div id="selected-stock" class="selected-stock"></div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="start-date">开始日期</label>
+                        <input type="date" id="start-date" value="2023-01-01">
+                    </div>
+                    <div class="form-group">
+                        <label for="end-date">结束日期</label>
+                        <input type="date" id="end-date" value="2024-12-31">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="strategy">选择策略</label>
+                    <select id="strategy">
+                        <option value="">请选择策略</option>
+                    </select>
+                    <p id="strategy-desc" class="strategy-desc"></p>
+                </div>
+
+                <div id="strategy-params" class="strategy-params"></div>
+
+                <div class="form-group">
+                    <label for="initial-cap">初始资金 (元)</label>
+                    <input type="number" id="initial-cap" value="100000" min="10000" step="10000">
+                </div>
+
+                <button id="run-backtest" class="btn-primary" disabled>运行回测</button>
+            </section>
+
+            <section id="results-section" class="results-section hidden">
+                <h2>回测结果</h2>
+
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <h3>总收益率</h3>
+                        <p id="total-return" class="metric-value">-</p>
+                    </div>
+                    <div class="metric-card">
+                        <h3>年化收益率</h3>
+                        <p id="annualized-return" class="metric-value">-</p>
+                    </div>
+                    <div class="metric-card">
+                        <h3>最大回撤</h3>
+                        <p id="max-drawdown" class="metric-value">-</p>
+                    </div>
+                    <div class="metric-card">
+                        <h3>夏普比率</h3>
+                        <p id="sharpe-ratio" class="metric-value">-</p>
+                    </div>
+                    <div class="metric-card">
+                        <h3>胜率</h3>
+                        <p id="win-rate" class="metric-value">-</p>
+                    </div>
+                    <div class="metric-card">
+                        <h3>交易次数</h3>
+                        <p id="trade-count" class="metric-value">-</p>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3>权益曲线</h3>
+                    <canvas id="equity-chart"></canvas>
+                </div>
+
+                <div class="trades-section">
+                    <h3>交易记录</h3>
+                    <div class="table-container">
+                        <table id="trades-table">
+                            <thead>
+                                <tr>
+                                    <th>日期</th>
+                                    <th>类型</th>
+                                    <th>价格</th>
+                                    <th>数量</th>
+                                    <th>金额</th>
+                                    <th>理由</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>股票回测系统 - 仅供学习研究使用，不构成投资建议</p>
+        </footer>
+    </div>
+
+    <div id="loading" class="loading hidden">
+        <div class="spinner"></div>
+        <p>正在运行回测...</p>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
