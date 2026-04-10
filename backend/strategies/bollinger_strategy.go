@@ -42,7 +42,7 @@ func (s *BollingerStrategy) Execute(prices []models.StockPrice, initialCap float
 	}
 
 	// 计算布林带
-	middle, upper, lower := calculateBollingerBands(prices, period, stdDev)
+	_, upper, lower := calculateBollingerBands(prices, period, stdDev)
 
 	// 回测逻辑
 	capital := initialCap
